@@ -19,14 +19,15 @@ export class LoginPage extends Component {
     }
 
     handleChange = (e) => {
-        // const { name } = e.target;
-        // this.setState({ [name]: e.target.value })
+        const { name } = e.target;
+        this.setState({ [name]: e.target.value })
     }
 
     handleSubmit = (e) => {
-        // e.preventDefault();
-        // const { username, password } = this.state;
-        // console.log({ username, password })
+        e.preventDefault();
+        const { username, password, submitted } = this.state;
+        console.log({ username, password })
+        this.setState({ submitted: !submitted })
     }
 
     render() {
@@ -51,6 +52,7 @@ export class LoginPage extends Component {
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary">Login</button>
+                        <Link to="/register" className="btn btn-link">Register</Link>
                     </div>
                 </form>
             </div>
