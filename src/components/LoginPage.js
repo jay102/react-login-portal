@@ -22,8 +22,7 @@ export class LoginPage extends Component {
     }
 
     handleChange(e) {
-        const { name } = e.target;
-       this.setState([name]: e.target.value)
+       
     }
 
     handleSubmit(e) {
