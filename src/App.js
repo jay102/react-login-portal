@@ -5,10 +5,10 @@ import { PrivateRoute } from './PrivateRoute.js';
 import { history } from './helpers';
 import { alertActions } from './actions';
 import { HomePage } from './components/HomePage';
-import { LoginPage } from './components/LoginPage';
-import { RegisterPage } from './components/RegisterPage';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
 
-export class App extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,8 +24,8 @@ export class App extends React.Component {
                 <div className="container">
                     <div className="col-sm-8 col-sm-offset-2">
                         <Switch>
-                            <PrivateRoute component={HomePage} path="/" exact />
-                            <Route path="/login" component={LoginPage} />
+                            <PrivateRoute path="/" exact component={HomePage} />
+                            <Route path="/login" exact component={LoginPage} />
                             <Route exact path="/register" component={RegisterPage} />
                         </Switch>
                     </div>
@@ -41,3 +41,5 @@ function mapStateToProps(state) {
         alert
     };
 }
+
+export default connect(mapStateToProps)(App)

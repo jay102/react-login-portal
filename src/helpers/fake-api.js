@@ -28,6 +28,7 @@ export function configureFakeAPI() {
 
 
                 if (url.endsWith('/users/register') && opts.method === 'POST') {
+                    localStorage.clear('users');
                     let newUser = JSON.parse(opts.body);
 
                     let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
