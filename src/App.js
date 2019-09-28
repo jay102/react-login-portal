@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PrivateRoute } from './PrivateRoute.js';
 import { history } from './helpers';
@@ -20,7 +20,7 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         return (
-            <Router>
+            <Router history={history}>
                 <div className="container">
                     <div className="col-sm-8 col-sm-offset-2">
                         <Switch>
@@ -42,4 +42,5 @@ function mapStateToProps(state) {
     };
 }
 
+export { App }
 export default connect(mapStateToProps)(App)

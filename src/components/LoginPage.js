@@ -7,7 +7,7 @@ import { userActions } from '../actions';
 import Response from './Response';
 import Spinner from './Spinner/spinner';
 
-class LoginPage extends Component {
+export class LoginPage extends Component {
     constructor(props) {
         super(props);
 
@@ -19,7 +19,6 @@ class LoginPage extends Component {
             submitted: false
         };
     }
-
     handleChange = (e) => {
         const { name } = e.target;
         this.setState({ [name]: e.target.value })
@@ -28,12 +27,16 @@ class LoginPage extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         const { username, password, submitted } = this.state;
+        const { dispatch } = this.props;
         this.setState({ submitted: !submitted })
+        if (username !== '' && password !== '') {
+            dispatch(userActions.login(username, password));
+        }
     }
 
     render() {
         const { username, password, submitted } = this.state;
-        const { alert } = this.props;
+        const { alert, authentication } = this.props;
         return (
             <React.Fragment>
                 {Object.keys(alert).length !== 0 ? <Response {...alert} /> : null}
@@ -56,6 +59,7 @@ class LoginPage extends Component {
                         </div>
                         <div className="form-group">
                             <button className="btn btn-primary">Login</button>
+                            {authentication.loggingIn ? <Spinner /> : null}
                             <Link to="/register" className="btn btn-link">Register</Link>
                         </div>
                     </form>
@@ -68,8 +72,9 @@ class LoginPage extends Component {
 function mapStateToProps(state) {
     return {
         alert: state.alert,
+        authentication: state.authentication
     }
 }
 
-//export { LoginPage as TestLoginPage };
+export { LoginPage as TestLoginPage };
 export default connect(mapStateToProps)(LoginPage);

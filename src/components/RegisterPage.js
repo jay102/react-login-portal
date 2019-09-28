@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../actions';
+import { userActions, alertActions } from '../actions';
 import Response from './Response';
 import Spinner from './Spinner/spinner';
 
@@ -19,10 +19,9 @@ class RegisterPage extends Component {
             submitted: false
         };
     }
-    componentDidUpdate() {
-        const { register, history } = this.props;
-        const { success } = register;
-        success.ok ? history.push('/login') : null;
+    componentWillMount() {
+        const { dispatch } = this.props;
+        dispatch(alertActions.clear())
     }
 
     handleChange = (event) => {
@@ -39,19 +38,19 @@ class RegisterPage extends Component {
         // handle button click and dispatch register
         const { submitted, user } = this.state;
         const { username, password } = user;
-        const { dispatch } = this.props;
+        const { dispatch, alert, history } = this.props;
         this.setState({
             submitted: !submitted,
         });
         if (username !== '' && password !== '') {
             dispatch(userActions.register(user));
+            alert.type === 'alert-success' ? history.push('/login') : null;
         }
-
     }
-
     render() {
         const { user, submitted } = this.state;
-        const { alert, register } = this.props;
+        const { alert, register, history } = this.props;
+        // alert.type === 'alert-success' ? history.push('/login') : null;
 
         return (
             <React.Fragment>
@@ -93,5 +92,5 @@ function mapStateToProps(state) {
     }
 }
 
-//export { RegisterPage as TestRegisterPage };
+export { RegisterPage as TestRegisterPage };
 export default connect(mapStateToProps)(RegisterPage)
