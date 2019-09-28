@@ -12,7 +12,7 @@ function login(username, password) {
     };
 
     // call `/users/authenticate` with requestOptions to authenticate the login process
-    return fetch('/users/authenticate', requestOptions).then(handleResponse);
+    return fetch('/users/authenticate', requestOptions);
 
 }
 

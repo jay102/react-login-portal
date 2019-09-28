@@ -17,25 +17,23 @@ function login(username, password) {
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 
-    return async function dispatch(dispatch) {
+    return function dispatch(dispatch) {
         dispatch(request(user));
-        try {
-            const res = await userService.login(username, password);
+        userService.login(username, password).then(res => {
             dispatch(success(res));
             dispatch(alertActions.success("Login successful"));
             localStorage.setItem('user', user);
-        } catch (err) {
+        }).catch(err => {
             console.log(err);
             dispatch(alertActions.error(err))
             dispatch(failure(err));
-        }
+        });
     }
 }
 
 function logout() {
     // complete this function
-
-
+    userService.logout()
 }
 
 function register(user) {
