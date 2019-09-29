@@ -40,9 +40,10 @@ export class LoginPage extends Component {
     render() {
         const { username, password, submitted } = this.state;
         const { alert, authentication } = this.props;
-        let isSuccess;
+        let isSuccess, clicked;
         if (authentication !== undefined) {
             isSuccess = authentication.loggedIn;
+            clicked = authentication.loggingIn
         }
         return (
             <React.Fragment>
@@ -66,7 +67,7 @@ export class LoginPage extends Component {
                         </div>
                         <div className="form-group">
                             <button className="btn btn-primary">Login</button>
-                            {authentication.loggingIn ? <Spinner /> : null}
+                            {clicked ? <Spinner /> : null}
                             <Link to="/register" className="btn btn-link">Register</Link>
                         </div>
                     </form>

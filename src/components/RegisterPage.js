@@ -47,9 +47,10 @@ class RegisterPage extends Component {
     render() {
         const { user, submitted } = this.state;
         const { alert, register } = this.props;
-        let isSuccess;
-        if (alert !== undefined) {
+        let isSuccess, clicked;
+        if (alert !== undefined && register !== undefined) {
             isSuccess = alert.type;
+            clicked = register.registering
         }
 
         return (
@@ -74,7 +75,7 @@ class RegisterPage extends Component {
                         </div>
                         <div className="form-group">
                             <button className="btn btn-primary">Register</button>
-                            {register.registering ? <Spinner /> : null}
+                            {clicked ? <Spinner /> : null}
                             <Link to="/login" className="btn btn-link">Cancel</Link>
                         </div>
                     </form>
