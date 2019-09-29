@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { userActions, alertActions } from '../actions';
@@ -19,11 +19,6 @@ class RegisterPage extends Component {
             submitted: false
         };
     }
-    componentWillMount() {
-        const { dispatch } = this.props;
-        dispatch(alertActions.clear())
-    }
-
     handleChange = (event) => {
         // handle input change and dispatch register
         const { user } = { ...this.state };
@@ -32,7 +27,6 @@ class RegisterPage extends Component {
         currentState[name] = value;
         this.setState({ user: currentState });
     }
-
     handleSubmit = (event) => {
         event.preventDefault();
         // handle button click and dispatch register
@@ -44,17 +38,23 @@ class RegisterPage extends Component {
         });
         if (username !== '' && password !== '') {
             dispatch(userActions.register(user));
-            alert.type === 'alert-success' ? history.push('/login') : null;
         }
+    }
+    componentWillUnmount() {
+        const { dispatch, alert } = this.props;
+        alert.type !== 'alert-success' ? dispatch(alertActions.clear()) : null
     }
     render() {
         const { user, submitted } = this.state;
-        const { alert, register, history } = this.props;
-        // alert.type === 'alert-success' ? history.push('/login') : null;
+        const { alert, register } = this.props;
+        let isSuccess;
+        if (alert.hasOwnProperty('type')) {
+            isSuccess = alert.type;
+        }
 
         return (
             <React.Fragment>
-                {Object.keys(alert).length !== 0 ? <Response {...alert} /> : null}
+                {isSuccess !== 'alert-success' ? <Response {...alert} /> : <Redirect to='login' />}
                 <div className="col-md-6 col-md-offset-3">
                     <h2>Register</h2>
                     <form name="form" onSubmit={this.handleSubmit}>

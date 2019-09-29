@@ -1,9 +1,9 @@
 import React from 'react';
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { userActions } from '../actions';
+import { userActions, alertActions } from '../actions';
 import Response from './Response';
 import Spinner from './Spinner/spinner';
 
@@ -33,13 +33,20 @@ export class LoginPage extends Component {
             dispatch(userActions.login(username, password));
         }
     }
-
+    componentWillUnmount() {
+        const { dispatch } = this.props;
+        dispatch(alertActions.clear())
+    }
     render() {
         const { username, password, submitted } = this.state;
         const { alert, authentication } = this.props;
+        let isSuccess;
+        if (authentication.hasOwnProperty('loggedIn')) {
+            isSuccess = authentication.loggedIn;
+        }
         return (
             <React.Fragment>
-                {Object.keys(alert).length !== 0 ? <Response {...alert} /> : null}
+                {!isSuccess ? <Response {...alert} /> : <Redirect to='/' />}
                 <div className="col-md-6 col-md-offset-3">
                     <h2>Login</h2>
                     <form name="form" onSubmit={this.handleSubmit}>

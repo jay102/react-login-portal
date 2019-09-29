@@ -12,7 +12,7 @@ function login(username, password) {
     };
 
     // call `/users/authenticate` with requestOptions to authenticate the login process
-    return fetch('/users/authenticate', requestOptions);
+    return fetch('/users/authenticate', requestOptions).then(res => res.json());
 
 }
 
@@ -37,5 +37,5 @@ function handleResponse(response) {
     if (!response.ok) {
         return Promise.reject(response.statusText);
     }
-    return response.json();
+    return response;
 }

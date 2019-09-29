@@ -9,7 +9,7 @@ export function registration(state = initialState, action) {
     case userConstants.REGISTER_REQUEST:
       return { ...state, registering: true };
     case userConstants.REGISTER_SUCCESS:
-      return { ...state, registering: false, }
+      return { ...state, registering: false }
     case userConstants.REGISTER_FAILURE:
       return { ...state, registering: false }
     default:

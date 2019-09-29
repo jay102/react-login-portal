@@ -17,23 +17,27 @@ function login(username, password) {
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 
-    return function dispatch(dispatch) {
+    return async function dispatch(dispatch) {
         dispatch(request(user));
-        userService.login(username, password).then(res => {
+        try {
+            const res = await userService.login(username, password);
+            localStorage.setItem('user', JSON.stringify(res.username))
+            console.log(res)
             dispatch(success(res));
-            dispatch(alertActions.success("Login successful"));
-            localStorage.setItem('user', user);
-        }).catch(err => {
+        } catch (err) {
             console.log(err);
             dispatch(alertActions.error(err))
             dispatch(failure(err));
-        });
+        }
     }
 }
 
 function logout() {
     // complete this function
     userService.logout()
+    return {
+        type: userConstants.LOGOUT
+    }
 }
 
 function register(user) {
