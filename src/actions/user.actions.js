@@ -21,8 +21,6 @@ function login(username, password) {
         dispatch(request(user));
         try {
             const res = await userService.login(username, password);
-            localStorage.setItem('user', JSON.stringify(res.username))
-            console.log(res)
             dispatch(success(res));
         } catch (err) {
             console.log(err);
