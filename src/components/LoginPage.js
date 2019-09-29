@@ -41,7 +41,7 @@ export class LoginPage extends Component {
         const { username, password, submitted } = this.state;
         const { alert, authentication } = this.props;
         let isSuccess;
-        if (authentication.hasOwnProperty('loggedIn')) {
+        if (Object.keys(authentication).length !== 0) {
             isSuccess = authentication.loggedIn;
         }
         return (
