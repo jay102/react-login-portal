@@ -48,9 +48,9 @@ class RegisterPage extends Component {
         const { user, submitted } = this.state;
         const { alert, register } = this.props;
         let isSuccess;
-        if (Object.keys(alert).length !== 0) {
-            isSuccess = alert.type;
-        }
+        //  if (Object.keys(alert).length !== 0) {
+        isSuccess = alert.type;
+        //}
 
         return (
             <React.Fragment>
