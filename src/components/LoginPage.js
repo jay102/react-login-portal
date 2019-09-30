@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { userActions, alertActions } from '../actions';
 import Response from './Response';
@@ -60,7 +61,7 @@ export class LoginPage extends Component {
                         </div>
                         <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
                             <label htmlFor="password">Password</label>
-                            <input type="password" className="form-control" name="password" onChange={this.handleChange} value={password} />
+                            <input type="password" className="form-control password" name="password" onChange={this.handleChange} value={password} />
                             {submitted && !password &&
                                 <div className="help-block">Password is required</div>
                             }
@@ -82,6 +83,9 @@ function mapStateToProps(state) {
         alert: state.alert,
         authentication: state.authentication
     }
+}
+LoginPage.propTypes = {
+    state: PropTypes.object
 }
 
 export { LoginPage as TestLoginPage };
