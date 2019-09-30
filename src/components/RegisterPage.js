@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { userActions, alertActions } from '../actions';
 import Response from './Response';
@@ -42,7 +43,12 @@ class RegisterPage extends Component {
     }
     componentWillUnmount() {
         const { dispatch, alert } = this.props;
-        alert.type !== 'alert-success' ? dispatch(alertActions.clear()) : null
+        if (alert.type === 'alert-success') {
+            return
+        } else {
+            dispatch(alertActions.clear())
+        }
+        // alert.type !== 'alert-success' ? dispatch(alertActions.clear()) : null
     }
     render() {
         const { user, submitted } = this.state;
@@ -92,6 +98,8 @@ function mapStateToProps(state) {
         register: state.registration
     }
 }
-
+RegisterPage.propTypes = {
+    state: PropTypes.object
+}
 export { RegisterPage as TestRegisterPage };
 export default connect(mapStateToProps)(RegisterPage)

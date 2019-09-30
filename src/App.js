@@ -11,10 +11,10 @@ class App extends React.Component {
         super(props);
 
         history.listen((location, action) => {
-            console.log(
-                `The current URL is ${location.pathname}`
-            );
-            console.log(`The last navigation action was ${action}`);
+            // console.log(
+            //     `The current URL is ${location.pathname}`
+            // );
+            // console.log(`The last navigation action was ${action}`);
         });
     }
     componentWillUnmount() {
