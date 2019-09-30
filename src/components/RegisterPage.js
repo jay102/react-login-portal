@@ -32,7 +32,7 @@ class RegisterPage extends Component {
         // handle button click and dispatch register
         const { submitted, user } = this.state;
         const { username, password } = user;
-        const { dispatch, alert, history } = this.props;
+        const { dispatch } = this.props;
         this.setState({
             submitted: !submitted,
         });

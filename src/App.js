@@ -14,20 +14,27 @@ class App extends React.Component {
 
         const { dispatch } = this.props;
         history.listen((location, action) => {
+            console.log(
+                `The current URL is ${location.pathname}`
+            );
+            console.log(`The last navigation action was ${action}`);
         });
     }
-
+    componentWillUnmount() {
+        const unlisten = this.history;
+        unlisten()
+    }
     render() {
         const { alert } = this.props;
         return (
             <Router history={history}>
                 <div className="container">
                     <div className="col-sm-8 col-sm-offset-2">
-                        <Switch>
-                            <PrivateRoute path="/" exact component={HomePage} />
-                            <Route path="/login" exact component={LoginPage} />
-                            <Route exact path="/register" component={RegisterPage} />
-                        </Switch>
+                        {/* <Switch> */}
+                        <PrivateRoute path="/" exact component={HomePage} />
+                        <Route path="/login" exact component={LoginPage} />
+                        <Route exact path="/register" component={RegisterPage} />
+                        {/* </Switch> */}
                     </div>
                 </div>
             </Router>
@@ -43,4 +50,4 @@ function mapStateToProps(state) {
 }
 
 export { App }
-export default connect(mapStateToProps)(App)
+//export default connect(mapStateToProps)(App)
