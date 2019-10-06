@@ -1,0 +1,1 @@
+A basic login portal with login and register with redux and a fake api call that saves data to localstorage
